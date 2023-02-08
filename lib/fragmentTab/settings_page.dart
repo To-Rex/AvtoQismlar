@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localization/flutter_localization.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -10,7 +8,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStateMixin {
-  // swich Language english and russian
   Color color1 = Colors.indigo;
   Color color2 = Colors.black87;
 
@@ -32,6 +29,7 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
       body: Column(
         children: [
           Expanded(child: Container()),
+
           Row(
             children: [
               Expanded(child: Container()),
@@ -69,9 +67,11 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
                 ),
                 child: TextButton(
                   onPressed: () {
+
                     color2 = Colors.indigo;
                     color1 = Colors.black87;
                     setState(() {});
+
                   },
                   child: const Center(
                     child: Text('Русский',

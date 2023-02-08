@@ -1,13 +1,11 @@
 import 'dart:convert';
 
-import 'package:avto_qismlar/fragmentTab/home_page.dart';
 import 'package:avto_qismlar/samples/samples.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

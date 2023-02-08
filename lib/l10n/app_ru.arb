@@ -1,0 +1,16 @@
+{
+//ru.json
+  "homePage": "Главная",
+  "personalInformation": "Личная информация",
+  "name": "Имя",
+  "nameHint": "Введите ваше имя",
+  "email": "Электронная почта",
+  "emailHint": "Введите вашу электронную почту",
+  "dateOfBirth": "Дата рождения",
+  "requiredField": "Обязательное поле",
+  "submitInfo": "Отправить информацию",
+  "aboutUs": "О нас",
+  "settings": "Настройки",
+  "changeLanguage": "Изменить язык",
+  "about": "О нас",
+}

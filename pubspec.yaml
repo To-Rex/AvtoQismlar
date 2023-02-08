@@ -43,7 +43,7 @@ dependencies:
   bottom_sheet: ^3.1.2
   flutter_countdown_timer: ^4.1.0
   intl: ^0.17.0
-  flutter_localization: ^0.1.10
+  localization: ^2.1.0
 
 dev_dependencies:
   flutter_test:
