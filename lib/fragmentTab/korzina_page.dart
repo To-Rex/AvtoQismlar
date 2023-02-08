@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class KorzinaPage extends StatefulWidget {
@@ -9,7 +8,7 @@ class KorzinaPage extends StatefulWidget {
   _SampesPageState createState() => _SampesPageState();
 }
 
-class _SampesPageState extends State<KorzinaPage> with SingleTickerProviderStateMixin {
+class _SampesPageState extends State<KorzinaPage> {
 
 
   @override
@@ -29,8 +28,7 @@ class _SampesPageState extends State<KorzinaPage> with SingleTickerProviderState
       ),
       body: Column(
         children: const [
-          //combobox for language change english and russian and uzbek
-          
+
         ],
       ),
     );
