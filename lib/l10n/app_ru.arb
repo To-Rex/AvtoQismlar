@@ -13,5 +13,7 @@
   "changeLanguage": "Изменить язык",
   "about": "Lorem Ipsum",
   "autoPart": "Авто кисмлар",
-  "userCount": "фойдаланувчилар сони: "
+  "userCount": "фойдаланувчилар сони: ",
+  "register": "Ройхатдан ўтиш",
+  "login": "Кириш",
 }

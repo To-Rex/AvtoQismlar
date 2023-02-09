@@ -56,7 +56,7 @@ class _SampesPageState extends State<HomePage>
       final data = jsonDecode(response.body);
       userNumber = data['clientsCount'];
       for (var i = 0; i < data['pictures'].length; i++) {
-        imgList.add('http://avtoqismlar.almirab.uz/public/uploads/ads/' + data['pictures'][i]);
+        imgList.add('http://avtoqismlar.almirab.uz/public/uploads/ads/${data['pictures'][i]}');
       }
       _getCategory();
       setState(() {});
@@ -90,9 +90,6 @@ class _SampesPageState extends State<HomePage>
       throw Exception('Failed to load categories');
     }
   }
-
-  //function latin to cyrillic and reverse
-
 
   @override
   void initState() {
@@ -152,9 +149,8 @@ class _SampesPageState extends State<HomePage>
                             autoPlay: true,
                             enlargeCenterPage: true,
                             enlargeFactor: 0.3,
-                            autoPlayInterval: const Duration(seconds: 2),
-                            autoPlayAnimationDuration:
-                                const Duration(milliseconds: 800),
+                            autoPlayInterval: const Duration(seconds: 4),
+                            autoPlayAnimationDuration: const Duration(milliseconds: 800),
                             autoPlayCurve: Curves.ease,
                             onPageChanged: (index, reason) {
                               setState(() {
@@ -211,8 +207,8 @@ class _SampesPageState extends State<HomePage>
                               );
                             },
                             child: Text(
-                              "Ro`yhatdan o`tish",
-                              style: TextStyle(
+                              AppLocalizations.of(context)!.register.toString(),
+                              style: const TextStyle(
                                   color: Colors.indigo,
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold),
@@ -222,16 +218,15 @@ class _SampesPageState extends State<HomePage>
                         if (token.isEmpty)
                           TextButton(
                             onPressed: () {
-                              //login page
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const LoginPage()),
                               );
                             },
-                            child: const Text(
-                              "Kirish",
-                              style: TextStyle(
+                            child: Text(
+                              AppLocalizations.of(context)!.login.toString(),
+                              style: const TextStyle(
                                   color: Colors.indigo,
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold),
