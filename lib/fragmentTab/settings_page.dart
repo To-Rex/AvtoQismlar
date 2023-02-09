@@ -1,4 +1,10 @@
+import 'package:avto_qismlar/classes/language.dart';
+import 'package:avto_qismlar/classes/language_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../main.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -28,8 +34,8 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
       ),
       body: Column(
         children: [
+          Text(AppLocalizations.of(context)!.submitInfo),
           Expanded(child: Container()),
-
           Row(
             children: [
               Expanded(child: Container()),
@@ -47,6 +53,8 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
                   onPressed: () {
                     color2 = Colors.black87;
                     color1 = Colors.indigo;
+                    //set lacale
+                    MyApp.setLocale(context, const Locale('en'));
                     setState(() {});
                   },
                   child: const Center(
@@ -67,9 +75,10 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
                 ),
                 child: TextButton(
                   onPressed: () {
-
                     color2 = Colors.indigo;
                     color1 = Colors.black87;
+                    //set lacale
+                    MyApp.setLocale(context, const Locale('ru'));
                     setState(() {});
 
                   },
