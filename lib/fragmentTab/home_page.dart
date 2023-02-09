@@ -4,7 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../samples/login_page.dart';
 import '../samples/product_page.dart';
 import '../samples/register_page.dart';
@@ -122,8 +122,8 @@ class _SampesPageState extends State<HomePage>
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
-                    const Text(
-                      "Avto qisimlar",
+                    Text(
+                      AppLocalizations.of(context)!.avtoQism,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -187,7 +187,7 @@ class _SampesPageState extends State<HomePage>
                       height: MediaQuery.of(context).size.height * 0.01,
                     ),
                     Text(
-                      "Foydalanuvchilar soni: $userNumber",
+                      AppLocalizations.of(context)!.UserCounter+ userNumber.toString(),
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 13,
