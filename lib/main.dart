@@ -37,6 +37,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
+  void initState() {
+    getLocale().then((locale) => {setLocale(locale)});
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Localization',
@@ -51,52 +57,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-/*
-
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-
-  static void setLocale(BuildContext context, Locale newLocale) {
-    _MyHomePageState? state = context.findAncestorStateOfType<_MyHomePageState>();
-    state?.setLocale(newLocale);
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  Locale? _locale;
-
-  setLocale(Locale locale) {
-    setState(() {
-      _locale = locale;
-    });
-    print(_locale);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SamplesPage(),
-    );
-  }
-}
-*/

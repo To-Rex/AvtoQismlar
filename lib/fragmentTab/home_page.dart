@@ -36,7 +36,6 @@ class _SampesPageState extends State<HomePage>
   var codeVerified = '';
   var client_id = '';
 
-  //get data shared preferences
   Future<void> _getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -57,8 +56,7 @@ class _SampesPageState extends State<HomePage>
       final data = jsonDecode(response.body);
       userNumber = data['clientsCount'];
       for (var i = 0; i < data['pictures'].length; i++) {
-        imgList.add('http://avtoqismlar.almirab.uz/public/uploads/ads/' +
-            data['pictures'][i]);
+        imgList.add('http://avtoqismlar.almirab.uz/public/uploads/ads/' + data['pictures'][i]);
       }
       _getCategory();
       setState(() {});
@@ -82,8 +80,6 @@ class _SampesPageState extends State<HomePage>
       for (var i = 0; i < data.length; i++) {
         categories.add(data[i]);
       }
-      //print categories picture
-      print(categories[0]['picture']);
       setState(() {});
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -94,6 +90,9 @@ class _SampesPageState extends State<HomePage>
       throw Exception('Failed to load categories');
     }
   }
+
+  //function latin to cyrillic and reverse
+
 
   @override
   void initState() {
@@ -123,8 +122,8 @@ class _SampesPageState extends State<HomePage>
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
                     Text(
-                      AppLocalizations.of(context)!.avtoQism,
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.autoPart.toString(),
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
@@ -187,7 +186,7 @@ class _SampesPageState extends State<HomePage>
                       height: MediaQuery.of(context).size.height * 0.01,
                     ),
                     Text(
-                      AppLocalizations.of(context)!.UserCounter+ userNumber.toString(),
+                      AppLocalizations.of(context)!.userCount+ userNumber.toString(),
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 13,
@@ -211,7 +210,7 @@ class _SampesPageState extends State<HomePage>
                                     builder: (context) => const RegisterPage()),
                               );
                             },
-                            child: const Text(
+                            child: Text(
                               "Ro`yhatdan o`tish",
                               style: TextStyle(
                                   color: Colors.indigo,

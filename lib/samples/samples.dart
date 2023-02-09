@@ -43,8 +43,7 @@ class _SampesPageState extends State<SamplesPage> with SingleTickerProviderState
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
-        selectedLabelStyle: const TextStyle(fontSize: 14),
-        backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
+        backgroundColor: const Color.fromRGBO(245, 245, 245, 1.0),
         items:  const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -68,8 +67,9 @@ class _SampesPageState extends State<SamplesPage> with SingleTickerProviderState
           ),
         ],
         currentIndex: _selectedIndex,
+        elevation: 5,
         selectedItemColor: Colors.white,
-        selectedIconTheme: const IconThemeData(color: Colors.white),
+        selectedIconTheme: const IconThemeData(color: Colors.indigo),
         onTap: _onItemTapped,
       ),
     );

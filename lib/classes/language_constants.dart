@@ -4,7 +4,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 const String LAGUAGE_CODE = 'languageCode';
 
-//languages code
 const String ENGLISH = 'en';
 const String RUS = 'ru';
 
@@ -15,8 +14,8 @@ Future<Locale> setLocale(String languageCode) async {
 }
 
 Future<Locale> getLocale() async {
-  SharedPreferences _prefs = await SharedPreferences.getInstance();
-  String languageCode = _prefs.getString(LAGUAGE_CODE) ?? ENGLISH;
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String languageCode = prefs.getString(LAGUAGE_CODE) ?? ENGLISH;
   return _locale(languageCode);
 }
 
@@ -25,7 +24,7 @@ Locale _locale(String languageCode) {
     case ENGLISH:
       return const Locale(ENGLISH, '');
     case RUS:
-      return const Locale(RUS, "");
+      return const Locale(RUS, '');
     default:
       return const Locale(ENGLISH, '');
   }
