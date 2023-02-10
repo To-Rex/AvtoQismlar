@@ -292,21 +292,26 @@ class _SampesPageState extends State<ProductPage>
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                                countMoney(
-                                                    double.parse(
-                                                        _listProduct[index]
-                                                            .sellPrice),
-                                                    double.parse(
-                                                        _listProduct[index]
-                                                            .discount),
-                                                    double.parse(
-                                                        _listProduct[index]
-                                                            .dollarRate)),
-                                                style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 13,
-                                                )),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                    countMoney(
+                                                        double.parse(
+                                                            _listProduct[index]
+                                                                .sellPrice),
+                                                        double.parse(
+                                                            _listProduct[index]
+                                                                .discount),
+                                                        double.parse(
+                                                            _listProduct[index]
+                                                                .dollarRate)),
+                                                    style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 13,
+                                                    )),
+                                              ],
+                                            ),
+
                                             SizedBox(
                                                 height: MediaQuery.of(context).size.height * 0.003),
                                             if (_listProduct[index].discount != "0.00")

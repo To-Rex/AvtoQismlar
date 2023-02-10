@@ -101,31 +101,6 @@ class _SampesPageState extends State<SettingsPage>
             child: Row(
               children: [
                 Expanded(child: Container()),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.3,
-                  height: MediaQuery.of(context).size.width * 0.3,
-                  decoration: BoxDecoration(
-                    color: Colors.indigo,
-                    borderRadius: BorderRadius.all(Radius.circular(
-                        MediaQuery.of(context).size.width * 0.5)),
-                  ),
-                  child: Center(
-                    child: Text('A',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: MediaQuery.of(context).size.width * 0.1,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                Expanded(child: Container()),
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
-            child: Row(
-              children: [
-                Expanded(child: Container()),
                 const Text('Abdulaziz Abdurahmonov',
                     style: TextStyle(
                         color: Colors.black,
