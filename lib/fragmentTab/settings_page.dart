@@ -43,7 +43,7 @@ class _SampesPageState extends State<SettingsPage>
                 const Text('Sozlamalar',
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 20,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold)),
                 Expanded(child: Container()),
               ],
