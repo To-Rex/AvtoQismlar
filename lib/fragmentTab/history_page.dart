@@ -11,7 +11,6 @@ class HistoryPage extends StatefulWidget {
 
 class _SampesPageState extends State<HistoryPage> with SingleTickerProviderStateMixin {
 
-  //function for getting data from shared preferences
   Future<void> _getSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print(prefs.getString('token'));
@@ -20,6 +19,14 @@ class _SampesPageState extends State<HistoryPage> with SingleTickerProviderState
     print(prefs.getString('phone'));
     print(prefs.getString('address'));
     print(prefs.getString('client_id'));
+    _getOrders();
+  }
+
+  Future<void> _getOrders() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var url = Uri.parse('http://avtoqismlar.almirab.uz/api/client_orders/${prefs.getString('client_id')}');
+    var response = await http.get(url);
+    print(response.body);
   }
 
   @override
@@ -40,11 +47,18 @@ class _SampesPageState extends State<HistoryPage> with SingleTickerProviderState
       ),
       body: Column(
         children: [
-          Text('jjjhjhjhjjhjhhj'),
+          //text Tarix
           Container(
             margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
-            color: Colors.red,
+            child: const Text('Tarix',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold)),
           ),
+
+          
+
         ],
       ),
     );
