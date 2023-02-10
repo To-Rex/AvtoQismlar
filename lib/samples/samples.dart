@@ -56,13 +56,14 @@ class _SampesPageState extends State<SamplesPage> with SingleTickerProviderState
             label: 'History',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.analytics),
-            activeIcon: Icon(Icons.analytics),
+            //basket icon
+            icon: Icon(Icons.shopping_cart),
+            activeIcon: Icon(Icons.shopping_cart),
             label: 'Analytics',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            activeIcon: Icon(Icons.person),
+            icon: Icon(Icons.settings),
+            activeIcon: Icon(Icons.settings),
             label: 'Profile',
           ),
         ],
