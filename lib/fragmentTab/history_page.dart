@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:avto_qismlar/models/histry.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -30,8 +33,13 @@ class _SampesPageState extends State<HistoryPage> with SingleTickerProviderState
     var url = Uri.parse('http://avtoqismlar.almirab.uz/api/client_orders/${prefs.getString('client_id')}');
     var response = await http.get(url);
     print(response.body);
+    var data = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      
+      for (var i = 0; i < response.body.length; i++) {
+        var order = HistoryClass.fromJson(data[i]);
+        _orders.add(order);
+      }
+      print(_orders.toString());
     }
   }
 
