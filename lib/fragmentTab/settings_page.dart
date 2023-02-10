@@ -32,75 +32,30 @@ class _SampesPageState extends State<SettingsPage>
       ),
       body: Column(
         children: [
-          Container(
-            margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
-            child: Row(
-              children: [
-                //location icon and text
-                const Icon(Icons.location_on, color: Colors.indigo),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.005,
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text('Qo`qon',
-                      style: TextStyle(color: Colors.indigo)),
-                ),
-                Expanded(child: Container()),
-                PopupMenuButton(
-                  icon: const Icon(Icons.more_vert, color: Colors.indigo),
-                  itemBuilder: (context) => [
-                    //edit profile button and icon
-                    PopupMenuItem(
-                      child: Container(
-                        margin:
-                            const EdgeInsets.only(top: 10, left: 10, right: 10),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.edit, color: Colors.indigo),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.005,
-                            ),
-                            TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                  AppLocalizations.of(context)!.editProfile,
-                                  style: const TextStyle(color: Colors.indigo)),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    PopupMenuItem(
-                      child: Container(
-                        margin:
-                            const EdgeInsets.only(top: 10, left: 10, right: 10),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.logout, color: Colors.redAccent),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.005,
-                            ),
-                            TextButton(
-                              onPressed: () {},
-                              child: Text(AppLocalizations.of(context)!.logout,
-                                  style:
-                                      const TextStyle(color: Colors.redAccent)),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
           ),
           Container(
-            margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+            margin: const EdgeInsets.only(top: 50, left: 20, right: 10),
             child: Row(
               children: [
-                Expanded(child: Container()),
+                //icon person
+                Container(
+                  width: 30,
+                  height: 30,
+                  decoration: const BoxDecoration(
+                    color: Colors.indigo,
+                    //in the form of a circle with a radius of 50
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                  ),
+                  child: const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.05,
+                ),
                 const Text('Abdulaziz Abdurahmonov',
                     style: TextStyle(
                         color: Colors.black,
@@ -110,76 +65,67 @@ class _SampesPageState extends State<SettingsPage>
               ],
             ),
           ),
-          //phone number
           Container(
-            margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+            margin: const EdgeInsets.only(top: 10, left: 20, right: 10),
             child: Row(
               children: [
-                Expanded(child: Container()),
-                const Text('+998 97 123 45 67',
+                //icon person
+                Container(
+                  width: 30,
+                  height: 30,
+                  decoration: const BoxDecoration(
+                    color: Colors.indigo,
+                    //in the form of a circle with a radius of 50
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                  ),
+                  child: const Icon(
+                    Icons.phone,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.05,
+                ),
+                const Text('+998 97 777 77 77',
                     style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 15,
+                      color: Colors.black,
+                      fontSize: 20,
                     )),
                 Expanded(child: Container()),
               ],
             ),
           ),
-
-          Expanded(child: Container()),
-          Row(
-            children: [
-              Expanded(child: Container()),
-              Container(
-                width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  color: color1,
-                  //in the form of a circle with a radius of 50
-                  borderRadius: const BorderRadius.all(Radius.circular(13)),
+          //country
+          Container(
+            margin: const EdgeInsets.only(top: 10, left: 20, right: 10),
+            child: Row(
+              children: [
+                //icon person
+                Container(
+                  width: 30,
+                  height: 30,
+                  decoration: const BoxDecoration(
+                    color: Colors.indigo,
+                    //in the form of a circle with a radius of 50
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                  ),
+                  child: const Icon(
+                    Icons.location_on,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: 2,
-                decoration: BoxDecoration(
-                  color: color1,
-                  //in the form of a circle with a radius of 50
-                  borderRadius: const BorderRadius.all(Radius.circular(13)),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.05,
                 ),
-              ),
-              Container(
-                width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  color: color1,
-                  //in the form of a circle with a radius of 50
-                  borderRadius: const BorderRadius.all(Radius.circular(13)),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: 2,
-                decoration: BoxDecoration(
-                  color: color2,
-                  //in the form of a circle with a radius of 50
-                  borderRadius: const BorderRadius.all(Radius.circular(13)),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  color: color2,
-                  //in the form of a circle with a radius of 50
-                  borderRadius: const BorderRadius.all(Radius.circular(13)),
-                ),
-              ),
-              Expanded(child: Container()),
-            ],
+                const Text('Uzbekistan',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    )),
+                Expanded(child: Container()),
+              ],
+            ),
           ),
-
-          //name and surname
 
           Expanded(child: Container()),
           Row(
@@ -239,10 +185,38 @@ class _SampesPageState extends State<SettingsPage>
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.05,
           ),
+          //logout icon button and text
           Container(
-            margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
-            color: Colors.red,
-          ),
+              margin: const EdgeInsets.only(left: 20, right: 10),
+              child: Row(
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: [
+                        //icon logout and text
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                          ),
+                          child: const Icon(
+                            Icons.logout,
+                            color: Colors.red,
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.01,
+                        ),
+                        Text(AppLocalizations.of(context)!.logout,
+                            style: const TextStyle(
+                                color: Colors.red, fontSize: 18)),
+                      ],
+                    ),
+                  ),
+                ],
+              )),
         ],
       ),
     );

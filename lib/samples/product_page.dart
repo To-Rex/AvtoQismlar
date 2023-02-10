@@ -311,7 +311,6 @@ class _SampesPageState extends State<ProductPage>
                                                     )),
                                               ],
                                             ),
-
                                             SizedBox(
                                                 height: MediaQuery.of(context).size.height * 0.003),
                                             if (_listProduct[index].discount != "0.00")
