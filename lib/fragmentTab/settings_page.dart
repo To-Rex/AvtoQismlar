@@ -10,7 +10,8 @@ class SettingsPage extends StatefulWidget {
   _SampesPageState createState() => _SampesPageState();
 }
 
-class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStateMixin {
+class _SampesPageState extends State<SettingsPage>
+    with SingleTickerProviderStateMixin {
   Color color1 = Colors.indigo;
   Color color2 = Colors.black45;
 
@@ -41,8 +42,7 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
                   width: MediaQuery.of(context).size.width * 0.005,
                 ),
                 TextButton(
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                   child: const Text('Qo`qon',
                       style: TextStyle(color: Colors.indigo)),
                 ),
@@ -53,7 +53,8 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
                     //edit profile button and icon
                     PopupMenuItem(
                       child: Container(
-                        margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                        margin:
+                            const EdgeInsets.only(top: 10, left: 10, right: 10),
                         child: Row(
                           children: [
                             const Icon(Icons.edit, color: Colors.indigo),
@@ -72,7 +73,8 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
                     ),
                     PopupMenuItem(
                       child: Container(
-                        margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                        margin:
+                            const EdgeInsets.only(top: 10, left: 10, right: 10),
                         child: Row(
                           children: [
                             const Icon(Icons.logout, color: Colors.redAccent),
@@ -81,9 +83,9 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
                             ),
                             TextButton(
                               onPressed: () {},
-                              child: Text(
-                                  AppLocalizations.of(context)!.logout,
-                                  style: const TextStyle(color: Colors.redAccent)),
+                              child: Text(AppLocalizations.of(context)!.logout,
+                                  style:
+                                      const TextStyle(color: Colors.redAccent)),
                             ),
                           ],
                         ),
@@ -102,9 +104,10 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
                 Container(
                   width: MediaQuery.of(context).size.width * 0.3,
                   height: MediaQuery.of(context).size.width * 0.3,
-                  decoration:  BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.indigo,
-                    borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width * 0.5)),
+                    borderRadius: BorderRadius.all(Radius.circular(
+                        MediaQuery.of(context).size.width * 0.5)),
                   ),
                   child: Center(
                     child: Text('A',
@@ -123,8 +126,7 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
             child: Row(
               children: [
                 Expanded(child: Container()),
-                const Text(
-                    'Abdulaziz Abdurahmonov',
+                const Text('Abdulaziz Abdurahmonov',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -139,11 +141,11 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
             child: Row(
               children: [
                 Expanded(child: Container()),
-                const Text(
-                    '+998 97 123 45 67',
+                const Text('+998 97 123 45 67',
                     style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 15,)),
+                      color: Colors.black54,
+                      fontSize: 15,
+                    )),
                 Expanded(child: Container()),
               ],
             ),
@@ -156,7 +158,7 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
               Container(
                 width: 20,
                 height: 20,
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                   color: color1,
                   //in the form of a circle with a radius of 50
                   borderRadius: const BorderRadius.all(Radius.circular(13)),
@@ -165,7 +167,7 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
               Container(
                 width: MediaQuery.of(context).size.width * 0.3,
                 height: 2,
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                   color: color1,
                   //in the form of a circle with a radius of 50
                   borderRadius: const BorderRadius.all(Radius.circular(13)),
@@ -174,7 +176,7 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
               Container(
                 width: 20,
                 height: 20,
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                   color: color1,
                   //in the form of a circle with a radius of 50
                   borderRadius: const BorderRadius.all(Radius.circular(13)),
@@ -183,7 +185,7 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
               Container(
                 width: MediaQuery.of(context).size.width * 0.3,
                 height: 2,
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                   color: color2,
                   //in the form of a circle with a radius of 50
                   borderRadius: const BorderRadius.all(Radius.circular(13)),
@@ -192,7 +194,7 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
               Container(
                 width: 20,
                 height: 20,
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                   color: color2,
                   //in the form of a circle with a radius of 50
                   borderRadius: const BorderRadius.all(Radius.circular(13)),
@@ -211,7 +213,7 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
               Container(
                 width: MediaQuery.of(context).size.width * 0.3,
                 height: MediaQuery.of(context).size.height * 0.05,
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                   color: color1,
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(13),
@@ -225,16 +227,16 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
                     MyApp.setLocale(context, const Locale('en'));
                     setState(() {});
                   },
-                  child: const Center(
-                    child: Text('Uzbekcha',
-                        style: TextStyle(color: Colors.white)),
+                  child: Center(
+                    child: Text(AppLocalizations.of(context)!.lotin,
+                        style: const TextStyle(color: Colors.white)),
                   ),
                 ),
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.3,
                 height: MediaQuery.of(context).size.height * 0.05,
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                   color: color2,
                   borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(13),
@@ -245,14 +247,12 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
                   onPressed: () {
                     color2 = Colors.indigo;
                     color1 = Colors.black45;
-                    //set lacale
                     MyApp.setLocale(context, const Locale('ru'));
                     setState(() {});
-
                   },
-                  child: const Center(
-                    child: Text('Русский',
-                        style: TextStyle(color: Colors.white)),
+                  child: Center(
+                    child: Text(AppLocalizations.of(context)!.kiril,
+                        style: const TextStyle(color: Colors.white)),
                   ),
                 ),
               ),
