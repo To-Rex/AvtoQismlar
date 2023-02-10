@@ -47,15 +47,49 @@ class _SampesPageState extends State<SettingsPage> with SingleTickerProviderStat
                       style: TextStyle(color: Colors.indigo)),
                 ),
                 Expanded(child: Container()),
-                const Icon(Icons.logout, color: Colors.redAccent),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.005,
-                ),
-                TextButton(
-                  onPressed: () {
-                  },
-                  child: const Text('Logout',
-                      style: TextStyle(color: Colors.redAccent)),
+                PopupMenuButton(
+                  icon: const Icon(Icons.more_vert, color: Colors.indigo),
+                  itemBuilder: (context) => [
+                    //edit profile button and icon
+                    PopupMenuItem(
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.edit, color: Colors.indigo),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.005,
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                  AppLocalizations.of(context)!.editProfile,
+                                  style: const TextStyle(color: Colors.indigo)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    PopupMenuItem(
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.logout, color: Colors.redAccent),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.005,
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                  AppLocalizations.of(context)!.logout,
+                                  style: const TextStyle(color: Colors.redAccent)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

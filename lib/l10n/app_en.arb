@@ -15,5 +15,7 @@
   "autoPart": "Auto Qismlar",
   "userCount": "Foydalanuvchilar soni: ",
   "register": "Ro'yxatdan o'tish",
-  "login": "Kirish"
+  "login": "Kirish",
+  "logout": "Chiqish",
+  "editProfile": "Profilni tahrirlash",
 }

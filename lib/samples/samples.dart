@@ -48,12 +48,12 @@ class _SampesPageState extends State<SamplesPage> with SingleTickerProviderState
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             activeIcon: Icon(Icons.home),
-            label: 'Menu',
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.restore),
             activeIcon: Icon(Icons.restore),
-            label: 'Tables',
+            label: 'History',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.analytics),
@@ -61,9 +61,9 @@ class _SampesPageState extends State<SamplesPage> with SingleTickerProviderState
             label: 'Analytics',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            activeIcon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: Icon(Icons.person),
+            activeIcon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,
