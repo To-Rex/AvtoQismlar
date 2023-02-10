@@ -35,6 +35,20 @@ class _SampesPageState extends State<SettingsPage>
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.05,
           ),
+          //text sozlamalar
+          Container(
+            margin: const EdgeInsets.only(left: 20, right: 10),
+            child: Row(
+              children: [
+                const Text('Sozlamalar',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+                Expanded(child: Container()),
+              ],
+            ),
+          ),
           Container(
             margin: const EdgeInsets.only(top: 50, left: 20, right: 10),
             child: Row(
