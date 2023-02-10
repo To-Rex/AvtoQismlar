@@ -11,6 +11,9 @@ class HistoryPage extends StatefulWidget {
 
 class _SampesPageState extends State<HistoryPage> with SingleTickerProviderStateMixin {
 
+
+  var _orders = [];
+
   Future<void> _getSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print(prefs.getString('token'));
@@ -27,6 +30,9 @@ class _SampesPageState extends State<HistoryPage> with SingleTickerProviderState
     var url = Uri.parse('http://avtoqismlar.almirab.uz/api/client_orders/${prefs.getString('client_id')}');
     var response = await http.get(url);
     print(response.body);
+    if (response.statusCode == 200) {
+      
+    }
   }
 
   @override
@@ -56,8 +62,21 @@ class _SampesPageState extends State<HistoryPage> with SingleTickerProviderState
                     fontSize: 22,
                     fontWeight: FontWeight.bold)),
           ),
+          Container(
+            margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            height: MediaQuery.of(context).size.height * 0.20,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              //itemCount: _similars.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
 
-          
+                  ],
+                );
+              },
+            ),
+          ),
 
         ],
       ),
