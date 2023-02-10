@@ -56,7 +56,7 @@ class _SampesPageState extends State<SettingsPage>
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.05,
                 ),
-                const Text('Abdulaziz Abdurahmonov',
+                const Text('Alijon Valiyev G\'aniyevich',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -86,7 +86,7 @@ class _SampesPageState extends State<SettingsPage>
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.05,
                 ),
-                const Text('+998 97 777 77 77',
+                const Text('+998 90 123 45 67',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -126,7 +126,6 @@ class _SampesPageState extends State<SettingsPage>
               ],
             ),
           ),
-
           Expanded(child: Container()),
           Row(
             children: [
@@ -180,8 +179,6 @@ class _SampesPageState extends State<SettingsPage>
               Expanded(child: Container()),
             ],
           ),
-          //Logout button
-
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.05,
           ),
