@@ -169,7 +169,6 @@ class _SampesPageState extends State<ProductPage>
                     });
                   },
                 ),
-              //korzina icon
               IconButton(
                 icon: const Icon(
                   Icons.shopping_cart,
@@ -380,51 +379,55 @@ class _SampesPageState extends State<ProductPage>
                                       ],
                                     ),
                                   ),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            //counter index update --
-                                            if (counter[index] > 1) {
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.05,
+                                    width: MediaQuery.of(context).size.width * 0.61,
+                                    child: Row(
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              //counter index update --
+                                              if (counter[index] > 1) {
+                                                setState(() {
+                                                  counter[index] =
+                                                      counter[index] - 1;
+                                                  //counter--;
+                                                });
+                                              }
+                                            },
+                                            icon: const Icon(
+                                              Icons.remove_circle,
+                                              color: Colors.red,
+                                            )),
+                                        Text(counter[index].toString(),
+                                            style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold)),
+                                        IconButton(
+                                            onPressed: () {
                                               setState(() {
-                                                counter[index] =
-                                                    counter[index] - 1;
-                                                //counter--;
+                                                counter[index] = counter[index] + 1;
                                               });
-                                            }
-                                          },
+                                            },
+                                            icon: const Icon(
+                                              Icons.add_circle,
+                                              color: Colors.green,
+                                            )),
+                                        const Expanded(child: Text('')),
+                                        IconButton(
                                           icon: const Icon(
-                                            Icons.remove_circle,
-                                            color: Colors.red,
-                                          )),
-                                      Text(counter[index].toString(),
-                                          style: const TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold)),
-                                      IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              counter[index] =
-                                                  counter[index] + 1;
-                                            });
-                                          },
-                                          icon: const Icon(
-                                            Icons.add_circle,
+                                            Icons.shopping_cart,
                                             color: Colors.green,
-                                          )),
-                                      SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.21),
-                                      IconButton(
-                                        icon: const Icon(
-                                          Icons.shopping_cart,
-                                          color: Colors.green,
+                                          ),
+                                          onPressed: () {},
                                         ),
-                                        onPressed: () {},
-                                      ),
-                                    ],
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.01),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
