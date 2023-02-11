@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:avto_qismlar/models/histry.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+
+import '../models/histry.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -12,34 +13,35 @@ class HistoryPage extends StatefulWidget {
   _SampesPageState createState() => _SampesPageState();
 }
 
-class _SampesPageState extends State<HistoryPage> with SingleTickerProviderStateMixin {
-
-
+class _SampesPageState extends State<HistoryPage>
+    with SingleTickerProviderStateMixin {
   var _orders = [];
+  var _orders2 = [];
 
   Future<void> _getSharedPref() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(prefs.getString('token'));
-    print(prefs.getString('codeVerified'));
-    print(prefs.getString('fullName'));
-    print(prefs.getString('phone'));
-    print(prefs.getString('address'));
-    print(prefs.getString('client_id'));
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
     _getOrders();
   }
 
   Future<void> _getOrders() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var url = Uri.parse('http://avtoqismlar.almirab.uz/api/client_orders/${prefs.getString('client_id')}');
+    var url = Uri.parse(
+        'http://avtoqismlar.almirab.uz/api/client_orders/${prefs.getString('client_id')}');
     var response = await http.get(url);
-    print(response.body);
     var data = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      for (var i = 0; i < response.body.length; i++) {
-        var order = HistoryClass.fromJson(data[i]);
-        _orders.add(order);
+      for (var i = 0; i < data.length; i++) {
+        var date = data[i]['date'];
+        var total = data[i]['total'];
+        var status = data[i]['status'];
+        var id = data[i]['id'];
+        _orders.add(HistoryClass(
+            date: date,
+            total: total,
+            status: status,
+            id: id,));
       }
-      print(_orders.toString());
+      print(_orders.length);
     }
   }
 
@@ -52,14 +54,17 @@ class _SampesPageState extends State<HistoryPage> with SingleTickerProviderState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(0), // here the desired height
-        child: AppBar(
-          backgroundColor: Colors.indigo,
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(0), // here the desired height
+          child: AppBar(
+            backgroundColor: Colors.indigo,
+          ),
         ),
-      ),
-      body: Column(
+        body: Center(
+          child: Text('History'),
+        )
+        /*body: Column(
         children: [
           //text Tarix
           Container(
@@ -87,7 +92,7 @@ class _SampesPageState extends State<HistoryPage> with SingleTickerProviderState
           ),
 
         ],
-      ),
-    );
+      ),*/
+        );
   }
 }
