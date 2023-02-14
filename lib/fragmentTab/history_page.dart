@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:avto_qismlar/models/products.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../models/histry.dart';
@@ -34,6 +35,7 @@ class _SampesPageState extends State<HistoryPage>
     if (response.statusCode == 200) {
       _orders.clear();
       _orders2.clear();
+      var price ;
       for (var i = 0; i < data.length; i++) {
         _orders.add(HistoryClass(
             date: data[i]['date'] ?? '',
@@ -44,12 +46,63 @@ class _SampesPageState extends State<HistoryPage>
               for (var j = 0; j < data[i]['products'].length; j++)
                 ProductClass.fromJson(data[i]['products'][j])
             ]));
-        print('=====>> ${_orders[i].products.length}');
-        //print('=====>> ${_orders[i].products[0].name}');
       }
-      print(_orders.length);
       setState(() {});
     }
+    getAllmoney();
+  }
+
+  String moneyFormat(double amount) {
+    final formatter = NumberFormat.currency(
+      locale: 'uz_UZ',
+      symbol: 'soʻm',
+    );
+    return formatter.format(amount).replaceAll(',00', '');
+  }
+
+  double countsMoney(double prise, double discount, double dollarRate) {
+    prise = prise * dollarRate;
+    discount = discount * dollarRate;
+    prise = prise - discount;
+    prise = prise / 100;
+    prise = prise.ceilToDouble();
+    prise = prise * 100;
+    return prise;
+  }
+
+  String countMoney(double prise, double discount, double dollarRate) {
+    prise = prise * dollarRate;
+    discount = discount * dollarRate;
+    prise = prise - discount;
+    prise = prise / 100;
+    prise = prise.ceilToDouble();
+    prise = prise * 100;
+    return moneyFormat(prise);
+  }
+
+  String countMoney1(double prise, double dollarRate) {
+    prise = prise * dollarRate;
+    prise = prise / 100;
+    prise = prise.ceilToDouble();
+    prise = prise * 100;
+    return moneyFormat(prise);
+  }
+
+  //_orders 2 add data['products'][j].countMoney( data['products'][j].sellPrice, data['products'][j].discount, data['products'][j].dollar_rate)
+  void getAllmoney() {
+    //_orders2 add data['products'][j].countMoney( data['products'][j].sellPrice, data['products'][j].discount, data['products'][j].dollar_rate) * data['products'][j].count ?? 0
+     for (var i = 0; i < data.length; i++) {
+       var price = 0.0;
+        for (var j = 0; j < data[i]['products'].length; j++) {
+          price += countsMoney(
+            double.parse(data[i]['products'][j]['sell_price']),
+            double.parse(data[i]['products'][j]['discount']),
+            double.parse(data[i]['products'][j]['dollar_rate'])
+          )*double.parse(data[i]['products'][j]['count']);
+        }
+       _orders2.add(moneyFormat(price));
+      }
+     print(_orders2);
   }
 
   @override
@@ -70,6 +123,19 @@ class _SampesPageState extends State<HistoryPage>
       ),
       body: Column(
         children: [
+          SizedBox(
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * 0.015,
+          ),
+          Text('Tarix', style: TextStyle(
+                  color: Colors.black,
+                  fontSize: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.05,
+                  fontWeight: FontWeight.bold)),
           Expanded(
             child: ListView.builder(
               itemCount: _orders.length,
@@ -77,16 +143,18 @@ class _SampesPageState extends State<HistoryPage>
                 return Column(
                   children: [
                     ListTile(
+                      //title: Text(_orders[index].date),
                       title: Text(_orders[index].date),
-                      trailing: Text(_orders2.length.toString()),
+                      trailing: const Text('yangi',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold)),
                     ),
-                    //_orders2.product.length
                     for (var i = 0; i < _orders[index].products.length; i++)
-                    //cardview for product
                       GestureDetector(
                         child: Card(
-                          color: Colors.white,
-                          shadowColor: Colors.grey,
+                          color: Colors.lime[50],
+                          shadowColor: Colors.lime[50],
                           elevation: 5,
                           margin: const EdgeInsets.all(15),
                           shape: RoundedRectangleBorder(
@@ -94,7 +162,6 @@ class _SampesPageState extends State<HistoryPage>
                           ),
                           child: Row(
                             children: [
-                              //if (_listProduct[index].picture != '')
                               if (_orders[index].products[i].picture != '')
                                 Container(
                                   width: MediaQuery
@@ -188,6 +255,11 @@ class _SampesPageState extends State<HistoryPage>
                                           .size
                                           .height *
                                           0.003),
+                                  Text(
+                                      'Narxi:${_orders[index].products[i].count}x${countMoney(double.parse(_orders[index].products[i].sellPrice),double.parse(_orders[index].products[i].discount), double.parse(_orders[index].products[i].dollarRate))}',
+                                      style: const TextStyle(
+                                          fontSize: 13,
+                                          color: Colors.black54)),
                                   SizedBox(
                                     width: MediaQuery
                                         .of(context)
@@ -204,6 +276,27 @@ class _SampesPageState extends State<HistoryPage>
 
                         },
                       ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 15, right: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Jami: ',
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          Text(
+                            '${_orders2[index]}',
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
                     Divider(
                       endIndent: 10,
                       indent: 10,
