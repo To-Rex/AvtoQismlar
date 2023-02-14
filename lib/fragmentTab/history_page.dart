@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../models/histry.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -129,7 +130,9 @@ class _SampesPageState extends State<HistoryPage>
                 .size
                 .height * 0.015,
           ),
-          Text('Tarix', style: TextStyle(
+          Text(
+              AppLocalizations.of(context)?.tarix ?? '',
+              style: TextStyle(
                   color: Colors.black,
                   fontSize: MediaQuery
                       .of(context)
