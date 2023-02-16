@@ -192,16 +192,13 @@ class _SampesPageState extends State<ConfirPage>
             },
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.5,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(25),
             ),
             child: Column(
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                ),
+
                 Container(
                   height: MediaQuery.of(context).size.height * 0.06,
                   decoration: const BoxDecoration(

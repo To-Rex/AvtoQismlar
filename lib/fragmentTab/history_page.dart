@@ -167,14 +167,8 @@ class _SampesPageState extends State<HistoryPage>
                             children: [
                               if (_orders[index].products[i].picture != '')
                                 Container(
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width * 0.3,
-                                  height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width * 0.3,
+                                  width: MediaQuery.of(context).size.width * 0.3,
+                                  height: MediaQuery.of(context).size.width * 0.3,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       image: DecorationImage(
@@ -184,8 +178,7 @@ class _SampesPageState extends State<HistoryPage>
                                 ),
                               if (_orders[index].products[i].picture == '')
                                 Container(
-                                  width: MediaQuery
-                                      .of(context)
+                                  width: MediaQuery.of(context)
                                       .size
                                       .width * 0.3,
                                   height: MediaQuery
@@ -199,22 +192,11 @@ class _SampesPageState extends State<HistoryPage>
                                               'https://1gai.ru/uploads/posts/2019-04/1554288456_vfd.jpg'),
                                           fit: BoxFit.cover)),
                                 ),
-                              SizedBox(
-                                  width:
-                                  MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width * 0.02),
+                              SizedBox(width: MediaQuery.of(context).size.width * 0.01),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                      height:
-                                      MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          0.01),
+                                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                   Text(_orders[index].products[i].name,
                                       style: const TextStyle(
                                           fontSize: 16,

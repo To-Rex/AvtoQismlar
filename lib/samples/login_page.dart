@@ -144,7 +144,7 @@ class _SampesPageState extends State<LoginPage>
             ],
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.5,
+            //height: MediaQuery.of(context).size.height * 0.5,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(25),
