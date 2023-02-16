@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:device_info_plus/device_info_plus.dart';
 import 'confirmation.dart';
 
 
@@ -21,13 +22,29 @@ class _SampesPageState extends State<RegisterPage>
 
   //http://avtoqismlar.almirab.uz/api/register
   Future<void> _register() async {
+    final deviceInfo = DeviceInfoPlugin();
+    String? device;
+    String? deviceVersion;
+
+    if (Platform.isAndroid) {
+      final androidInfo = await deviceInfo.androidInfo;
+      device = androidInfo.model;
+      deviceVersion = androidInfo.version.release;
+    }
+
+    if (Platform.isIOS) {
+      final iosInfo = await deviceInfo.iosInfo;
+      device = iosInfo.model;
+      deviceVersion = iosInfo.systemVersion;
+    }
+
     final response = await http.post(
       Uri.parse('http://avtoqismlar.almirab.uz/api/register'),
       body: {
         'phone': '+998${_phoneController.text}',
         'fullName': _nameController.text,
         'address': _countryController.text,
-        'deviceName': 'Android',
+        'deviceName': '$device $deviceVersion' ?? 'Unknown',
       },
     );
     if (response.statusCode == 200) {
