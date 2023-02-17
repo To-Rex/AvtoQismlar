@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:avto_qismlar/models/products.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class KorzinaPage extends StatefulWidget {
@@ -9,23 +13,47 @@ class KorzinaPage extends StatefulWidget {
 }
 
 class _SampesPageState extends State<KorzinaPage> {
+  final _productList = [];
+  var counter = [];
 
-  /*void saveProduct(BasketClass basketClass) {
-    //save product shared preferences
-    SharedPreferences.getInstance().then((prefs) {
-      prefs.setString('basket', jsonEncode(basketClass.toJson()));
-    });
-  }*/
-  var text = '';
-
-  //getData from shared preferences
   Future<void> getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    //get data from shared preferences
     String? basket = prefs.getString('basket');
-    print(basket);
-    text = prefs.getString('basket')!;
+    var data = jsonDecode(basket!);
+    List<dynamic> products = data['products'];
+    for (var product in products) {
+      ProductClass productClass = ProductClass.fromJson(product);
+      _productList.add(productClass);
+    }
+    setState(() {
+      counter = List.generate(_productList.length, (index) => _productList[index].count);
+    });
+  }
+
+  String moneyFormat(double amount) {
+    final formatter = NumberFormat.currency(
+      locale: 'uz_UZ',
+      symbol: 'soʻm',
+    );
+    return formatter.format(amount).replaceAll(',00', '');
+  }
+
+  String countMoney(double prise, double discount, double dollarRate) {
+    prise = prise * dollarRate;
+    discount = discount * dollarRate;
+    prise = prise - discount;
+    prise = prise / 100;
+    prise = prise.ceilToDouble();
+    prise = prise * 100;
+    return moneyFormat(prise);
+  }
+
+  String countMoney1(double prise, double dollarRate) {
+    prise = prise * dollarRate;
+    prise = prise / 100;
+    prise = prise.ceilToDouble();
+    prise = prise * 100;
+    return moneyFormat(prise);
   }
 
   @override
@@ -46,7 +74,264 @@ class _SampesPageState extends State<KorzinaPage> {
       ),
       body: Column(
         children: [
-          Text(text),
+          if (_productList.isNotEmpty)
+            Expanded(
+              child: ListView.builder(
+                  itemCount: _productList.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      child: Card(
+                        color: Colors.white,
+                        shadowColor: Colors.grey,
+                        elevation: 5,
+                        margin: const EdgeInsets.all(15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Row(
+                          children: [
+                            if (_productList[index].picture != '')
+                              Container(
+                                width:
+                                MediaQuery.of(context).size.width * 0.3,
+                                height:
+                                MediaQuery.of(context).size.width * 0.3,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            'http://avtoqismlar.almirab.uz/public/uploads/products/${_productList[index].picture}'),
+                                        fit: BoxFit.cover)),
+                              ),
+                            if (_productList[index].picture == '')
+                              Container(
+                                width:
+                                MediaQuery.of(context).size.width * 0.3,
+                                height:
+                                MediaQuery.of(context).size.width * 0.3,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: const DecorationImage(
+                                        image: NetworkImage(
+                                            'https://1gai.ru/uploads/posts/2019-04/1554288456_vfd.jpg'),
+                                        fit: BoxFit.cover)),
+                              ),
+                            SizedBox(
+                                width:
+                                MediaQuery.of(context).size.width * 0.02),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height *
+                                        0.01),
+                                Text(_productList[index].name,
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height *
+                                        0.01),
+                                Row(
+                                  children: [
+                                    const Text('Brend:',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        )),
+                                    Text(
+                                        '${_productList[index].brand.toUpperCase()}',
+                                        style: const TextStyle(
+                                            fontSize: 13,
+                                            color: Colors.orange)),
+                                    SizedBox(
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width *
+                                            0.01),
+                                    Text('${_productList[index].country}',
+                                        style: const TextStyle(
+                                          color: Colors.green,
+                                          fontSize: 13,
+                                        )),
+                                  ],
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height *
+                                        0.003),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width *
+                                      0.61,
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                  countMoney(
+                                                      double.parse(
+                                                          _productList[index]
+                                                              .sellPrice),
+                                                      double.parse(
+                                                          _productList[index]
+                                                              .discount),
+                                                      double.parse(
+                                                          _productList[index]
+                                                              .dollarRate)),
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 13,
+                                                  )),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                              height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                                  0.003),
+                                          if (_productList[index].discount !=
+                                              "0.00")
+                                            Text(
+                                                countMoney1(
+                                                    double.parse(
+                                                        _productList[index]
+                                                            .sellPrice),
+                                                    double.parse(
+                                                        _productList[index]
+                                                            .dollarRate)),
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 11,
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  decorationColor: Colors.red,
+                                                )),
+                                        ],
+                                      ),
+                                      const Expanded(child: Text('')),
+                                      if (_productList[index].guarantee ==
+                                          '1')
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.03,
+                                          width: MediaQuery.of(context)
+                                              .size
+                                              .width *
+                                              0.18,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(12),
+                                              border: Border.all(
+                                                  color: Colors.grey)),
+                                          child: Row(
+                                            children: [
+                                              const Spacer(),
+                                              const Icon(
+                                                Icons.check_circle,
+                                                color: Colors.green,
+                                                size: 20,
+                                              ),
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                    0.01,
+                                              ),
+                                              const Text(
+                                                'Kafolat',
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Colors.green),
+                                              ),
+                                              const Spacer(),
+                                            ],
+                                          ),
+                                        ),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                              .size
+                                              .width *
+                                              0.02),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.05,
+                                  width: MediaQuery.of(context).size.width *
+                                      0.61,
+                                  child: Row(
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            //counter index update --
+                                            if (counter[index] > 1) {
+                                              setState(() {
+                                                counter[index] =
+                                                    counter[index] - 1;
+                                                //counter--;
+                                              });
+                                            }
+                                          },
+                                          icon: const Icon(
+                                            Icons.remove_circle,
+                                            color: Colors.red,
+                                          )),
+                                      Text(counter[index].toString(),
+                                          style: const TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.bold)),
+                                      IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              counter[index] =
+                                                  counter[index] + 1;
+                                            });
+                                          },
+                                          icon: const Icon(
+                                            Icons.add_circle,
+                                            color: Colors.green,
+                                          )),
+                                      const Expanded(child: Text('')),
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color: Colors.black54,
+                                        ),
+                                        onPressed: () {
+                                          //delete product shared preferences and update list and listview
+                                          setState(() {
+                                            _productList.removeAt(index);
+                                            counter.removeAt(index);
+                                          });
+                                        },
+                                      ),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                              .size
+                                              .width *
+                                              0.01),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+
+                      },
+                    );
+                  }),
+            ),
         ],
       ),
     );
