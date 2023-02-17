@@ -5,6 +5,9 @@ import 'package:avto_qismlar/samples/product_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/basket.dart';
 
 class ProductPage extends StatefulWidget {
   var id;
@@ -29,8 +32,9 @@ class _SampesPageState extends State<ProductPage>
         "http://avtoqismlar.almirab.uz/api/get_products/${widget.id}"));
     if (response.statusCode == 200) {
       json.decode(response.body);
+      var data = json.decode(response.body);
       for (var i = 0; i < json.decode(response.body).length; i++) {
-        _productList.add(ProductClass(
+        /*_productList.add(ProductClass(
           id: json.decode(response.body)[i]['id'] ?? "",
           name: json.decode(response.body)[i]['name'] ?? "",
           nameRu: json.decode(response.body)[i]['name_ru'] ?? "",
@@ -54,7 +58,8 @@ class _SampesPageState extends State<ProductPage>
           brand: json.decode(response.body)[i]['brand'] ?? "",
           categoryId: json.decode(response.body)[i]['category_id'] ?? "",
           dollarRate: json.decode(response.body)[i]['dollar_rate'] ?? "",
-        ));
+        ));*/
+        _productList.add(ProductClass.fromJson(data[i]));
         counter.add(1);
       }
       _listProduct = _productList;
@@ -218,23 +223,29 @@ class _SampesPageState extends State<ProductPage>
                           child: Row(
                             children: [
                               if (_listProduct[index].picture != '')
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                height: MediaQuery.of(context).size.width * 0.3,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                        image: NetworkImage('http://avtoqismlar.almirab.uz/public/uploads/products/${_listProduct[index].picture}'),
-                                        fit: BoxFit.cover)),
-                              ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              'http://avtoqismlar.almirab.uz/public/uploads/products/${_listProduct[index].picture}'),
+                                          fit: BoxFit.cover)),
+                                ),
                               if (_listProduct[index].picture == '')
                                 Container(
-                                  width: MediaQuery.of(context).size.width * 0.3,
-                                  height: MediaQuery.of(context).size.width * 0.3,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.3,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       image: const DecorationImage(
-                                          image: NetworkImage('https://1gai.ru/uploads/posts/2019-04/1554288456_vfd.jpg'),
+                                          image: NetworkImage(
+                                              'https://1gai.ru/uploads/posts/2019-04/1554288456_vfd.jpg'),
                                           fit: BoxFit.cover)),
                                 ),
                               SizedBox(
@@ -311,8 +322,12 @@ class _SampesPageState extends State<ProductPage>
                                               ],
                                             ),
                                             SizedBox(
-                                                height: MediaQuery.of(context).size.height * 0.003),
-                                            if (_listProduct[index].discount != "0.00")
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.003),
+                                            if (_listProduct[index].discount !=
+                                                "0.00")
                                               Text(
                                                   countMoney1(
                                                       double.parse(
@@ -380,8 +395,10 @@ class _SampesPageState extends State<ProductPage>
                                     ),
                                   ),
                                   SizedBox(
-                                    height: MediaQuery.of(context).size.height * 0.05,
-                                    width: MediaQuery.of(context).size.width * 0.61,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.05,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.61,
                                     child: Row(
                                       children: [
                                         IconButton(
@@ -406,7 +423,8 @@ class _SampesPageState extends State<ProductPage>
                                         IconButton(
                                             onPressed: () {
                                               setState(() {
-                                                counter[index] = counter[index] + 1;
+                                                counter[index] =
+                                                    counter[index] + 1;
                                               });
                                             },
                                             icon: const Icon(
@@ -419,7 +437,60 @@ class _SampesPageState extends State<ProductPage>
                                             Icons.shopping_cart,
                                             color: Colors.green,
                                           ),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            //save product shared preferences
+                                            saveProduct(BasketClass(
+                                              client_id: '',
+                                              products: [
+                                                ProductClass(
+                                                    id: _listProduct[index].id,
+                                                    name: _listProduct[index]
+                                                        .name,
+                                                    nameRu: _listProduct[index]
+                                                        .nameRu,
+                                                    code: _listProduct[index]
+                                                        .code,
+                                                    productTypeId:
+                                                        _listProduct[index]
+                                                            .productTypeId,
+                                                    countryId: _listProduct[index]
+                                                        .countryId,
+                                                    brandId: _listProduct[index]
+                                                        .brandId,
+                                                    measurement: _listProduct[index]
+                                                        .measurement,
+                                                    price: _listProduct[index]
+                                                        .price,
+                                                    sellPrice: _listProduct[index]
+                                                        .sellPrice,
+                                                    discount: _listProduct[index]
+                                                        .discount,
+                                                    count: counter[index]
+                                                        .toString(),
+                                                    guarantee: _listProduct[index]
+                                                        .guarantee,
+                                                    picture: _listProduct[index]
+                                                        .picture,
+                                                    description: _listProduct[index]
+                                                        .description,
+                                                    minCount: _listProduct[index]
+                                                        .minCount,
+                                                    createdAt: _listProduct[index]
+                                                        .createdAt,
+                                                    updatedAt: _listProduct[index]
+                                                        .updatedAt,
+                                                    country: _listProduct[index]
+                                                        .country,
+                                                    countryRu: _listProduct[index]
+                                                        .countryRu,
+                                                    brand: _listProduct[index]
+                                                        .brand,
+                                                    categoryId:
+                                                        _listProduct[index].categoryId,
+                                                    dollarRate: _listProduct[index].dollarRate)
+                                              ],
+                                            ));
+                                          },
                                         ),
                                         SizedBox(
                                             width: MediaQuery.of(context)
@@ -435,12 +506,10 @@ class _SampesPageState extends State<ProductPage>
                           ),
                         ),
                         onTap: () {
-                          //send _listProduct ProductClass to ProductDetailPage and open ProductDetailPage
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => ProductDetail(
-                                //product id and category id send to ProductDetailPage
                                 productId: _listProduct[index].id,
                                 categoryId: _listProduct[index].categoryId,
                                 categoryName: widget.categoryName,
@@ -460,4 +529,22 @@ class _SampesPageState extends State<ProductPage>
       ),
     );
   }
+}
+
+void saveProduct(BasketClass basketClass) {
+  final prefs = SharedPreferences.getInstance();
+  prefs.then((value) {
+    if (value.getString('basket') != null) {
+      //get shared preferences basket list product
+      final basket = jsonDecode(value.getString('basket')!);
+      var length = basket['products'].length;
+      print(length);
+      //add new product in list last product index + 1 and save shared preferences
+      basket['products'].insert(length, basketClass.products[0].toJson());
+      value.setString('basket', jsonEncode(basket));
+    } else {
+      //save shared preferences
+      value.setString('basket', jsonEncode(basketClass.toJson()));
+    }
+  });
 }

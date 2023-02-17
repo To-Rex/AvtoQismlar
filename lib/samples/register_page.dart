@@ -150,7 +150,7 @@ class _SampesPageState extends State<RegisterPage>
                           ),
                         ],
                       ),
-                      Text(
+                      const Text(
                         'mobil operator kodi bilan kiriting!',
                         style: TextStyle(color: Colors.white),
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class KorzinaPage extends StatefulWidget {
   const KorzinaPage({super.key});
@@ -9,9 +10,27 @@ class KorzinaPage extends StatefulWidget {
 
 class _SampesPageState extends State<KorzinaPage> {
 
+  /*void saveProduct(BasketClass basketClass) {
+    //save product shared preferences
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setString('basket', jsonEncode(basketClass.toJson()));
+    });
+  }*/
+  var text = '';
+
+  //getData from shared preferences
+  Future<void> getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    //get data from shared preferences
+    String? basket = prefs.getString('basket');
+    print(basket);
+    text = prefs.getString('basket')!;
+  }
 
   @override
   void initState() {
+    getData();
     super.initState();
   }
 
@@ -26,8 +45,8 @@ class _SampesPageState extends State<KorzinaPage> {
         ),
       ),
       body: Column(
-        children: const [
-
+        children: [
+          Text(text),
         ],
       ),
     );
