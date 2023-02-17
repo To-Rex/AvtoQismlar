@@ -105,4 +105,32 @@ class ProductClass {
       'dollar_rate': dollarRate,
     };
   }
+
+  copyWith({required String count}) {
+    return ProductClass(
+      id: this.id,
+      name: this.name,
+      nameRu: this.nameRu,
+      code: this.code,
+      productTypeId: this.productTypeId,
+      countryId: this.countryId,
+      brandId: this.brandId,
+      measurement: this.measurement,
+      price: this.price,
+      sellPrice: this.sellPrice,
+      discount: this.discount,
+      count: count,
+      guarantee: this.guarantee,
+      picture: this.picture,
+      description: this.description,
+      minCount: this.minCount,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      country: this.country,
+      countryRu: this.countryRu,
+      brand: this.brand,
+      categoryId: this.categoryId,
+      dollarRate: this.dollarRate,
+    );
+  }
 }

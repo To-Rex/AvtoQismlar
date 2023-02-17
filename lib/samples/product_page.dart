@@ -26,6 +26,9 @@ class _SampesPageState extends State<ProductPage>
   var isSearch = false;
   var isLoading = true;
   var counter = [];
+  var cId = '';
+
+
 
   Future<void> getCategory() async {
     final response = await http.get(Uri.parse(
@@ -64,6 +67,7 @@ class _SampesPageState extends State<ProductPage>
       }
       _listProduct = _productList;
       isLoading = false;
+
       setState(() {});
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -98,9 +102,16 @@ class _SampesPageState extends State<ProductPage>
     return moneyFormat(prise);
   }
 
+  Future<void> getData() async{
+    final prefs = await SharedPreferences.getInstance();
+    cId = prefs.getString('client_id') ?? '';
+    print(cId);
+    getCategory();
+  }
+
   @override
   void initState() {
-    getCategory();
+    getData();
     super.initState();
   }
 
@@ -440,7 +451,7 @@ class _SampesPageState extends State<ProductPage>
                                           onPressed: () {
                                             //save product shared preferences
                                             saveProduct(BasketClass(
-                                              client_id: '',
+                                              client_id: cId,
                                               products: [
                                                 ProductClass(
                                                     id: _listProduct[index].id,

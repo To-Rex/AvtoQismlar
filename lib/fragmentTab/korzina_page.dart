@@ -15,9 +15,13 @@ class KorzinaPage extends StatefulWidget {
 class _SampesPageState extends State<KorzinaPage> {
   final _productList = [];
   var counter = [];
+  var cId;
 
   Future<void> getData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
+    cId = prefs.getString('client_id') ?? '';
+    print(cId);
+
     String? basket = prefs.getString('basket');
     var data = jsonDecode(basket!);
     List<dynamic> products = data['products'];
@@ -26,7 +30,11 @@ class _SampesPageState extends State<KorzinaPage> {
       _productList.add(productClass);
     }
     setState(() {
-      counter = List.generate(_productList.length, (index) => _productList[index].count);
+
+    });
+    setState(() {
+      counter = List.generate(
+          _productList.length, (index) => int.parse(_productList[index].count));
     });
   }
 
@@ -92,10 +100,8 @@ class _SampesPageState extends State<KorzinaPage> {
                           children: [
                             if (_productList[index].picture != '')
                               Container(
-                                width:
-                                MediaQuery.of(context).size.width * 0.3,
-                                height:
-                                MediaQuery.of(context).size.width * 0.3,
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                height: MediaQuery.of(context).size.width * 0.3,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
@@ -105,10 +111,8 @@ class _SampesPageState extends State<KorzinaPage> {
                               ),
                             if (_productList[index].picture == '')
                               Container(
-                                width:
-                                MediaQuery.of(context).size.width * 0.3,
-                                height:
-                                MediaQuery.of(context).size.width * 0.3,
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                height: MediaQuery.of(context).size.width * 0.3,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     image: const DecorationImage(
@@ -118,21 +122,19 @@ class _SampesPageState extends State<KorzinaPage> {
                               ),
                             SizedBox(
                                 width:
-                                MediaQuery.of(context).size.width * 0.02),
+                                    MediaQuery.of(context).size.width * 0.02),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height *
+                                    height: MediaQuery.of(context).size.height *
                                         0.01),
                                 Text(_productList[index].name,
                                     style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold)),
                                 SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height *
+                                    height: MediaQuery.of(context).size.height *
                                         0.01),
                                 Row(
                                   children: [
@@ -146,10 +148,9 @@ class _SampesPageState extends State<KorzinaPage> {
                                             fontSize: 13,
                                             color: Colors.orange)),
                                     SizedBox(
-                                        width: MediaQuery.of(context)
-                                            .size
-                                            .width *
-                                            0.01),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.01),
                                     Text('${_productList[index].country}',
                                         style: const TextStyle(
                                           color: Colors.green,
@@ -158,17 +159,16 @@ class _SampesPageState extends State<KorzinaPage> {
                                   ],
                                 ),
                                 SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height *
+                                    height: MediaQuery.of(context).size.height *
                                         0.003),
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width *
-                                      0.61,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.61,
                                   child: Row(
                                     children: [
                                       Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             children: [
@@ -191,8 +191,8 @@ class _SampesPageState extends State<KorzinaPage> {
                                           ),
                                           SizedBox(
                                               height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                                                      .size
+                                                      .height *
                                                   0.003),
                                           if (_productList[index].discount !=
                                               "0.00")
@@ -214,20 +214,19 @@ class _SampesPageState extends State<KorzinaPage> {
                                         ],
                                       ),
                                       const Expanded(child: Text('')),
-                                      if (_productList[index].guarantee ==
-                                          '1')
+                                      if (_productList[index].guarantee == '1')
                                         Container(
                                           height: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.03,
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .width *
+                                                  .size
+                                                  .width *
                                               0.18,
                                           decoration: BoxDecoration(
                                               borderRadius:
-                                              BorderRadius.circular(12),
+                                                  BorderRadius.circular(12),
                                               border: Border.all(
                                                   color: Colors.grey)),
                                           child: Row(
@@ -240,8 +239,8 @@ class _SampesPageState extends State<KorzinaPage> {
                                               ),
                                               SizedBox(
                                                 width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                                        .size
+                                                        .width *
                                                     0.01,
                                               ),
                                               const Text(
@@ -256,17 +255,17 @@ class _SampesPageState extends State<KorzinaPage> {
                                         ),
                                       SizedBox(
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .width *
+                                                  .size
+                                                  .width *
                                               0.02),
                                     ],
                                   ),
                                 ),
                                 SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.05,
-                                  width: MediaQuery.of(context).size.width *
-                                      0.61,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.61,
                                   child: Row(
                                     children: [
                                       IconButton(
@@ -274,11 +273,10 @@ class _SampesPageState extends State<KorzinaPage> {
                                             //counter index update --
                                             if (counter[index] > 1) {
                                               setState(() {
-                                                counter[index] =
-                                                    counter[index] - 1;
-                                                //counter--;
+                                                counter[index] = counter[index] - 1;
                                               });
                                             }
+                                            setState(() {});
                                           },
                                           icon: const Icon(
                                             Icons.remove_circle,
@@ -290,10 +288,8 @@ class _SampesPageState extends State<KorzinaPage> {
                                               fontWeight: FontWeight.bold)),
                                       IconButton(
                                           onPressed: () {
-                                            setState(() {
-                                              counter[index] =
-                                                  counter[index] + 1;
-                                            });
+                                            counter[index] = counter[index] + 1;
+                                            setState(() {});
                                           },
                                           icon: const Icon(
                                             Icons.add_circle,
@@ -309,14 +305,14 @@ class _SampesPageState extends State<KorzinaPage> {
                                           //delete product shared preferences and update list and listview
                                           setState(() {
                                             _productList.removeAt(index);
-                                            counter.removeAt(index);
+                                            //counter.removeAt(index);
                                           });
                                         },
                                       ),
                                       SizedBox(
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .width *
+                                                  .size
+                                                  .width *
                                               0.01),
                                     ],
                                   ),
@@ -326,12 +322,79 @@ class _SampesPageState extends State<KorzinaPage> {
                           ],
                         ),
                       ),
-                      onTap: () {
-
-                      },
+                      onTap: () {},
                     );
                   }),
             ),
+          Container(
+//height: MediaQuery.of(context).size.height * 0.05,
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 2.0,
+                  spreadRadius: 1.0,
+                  offset: Offset(1.0, 1.0), // shadow direction: bottom right
+                )
+              ],
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                Row(
+                  children: [
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                    const Text(
+                      'Jami:',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const Spacer(),
+                    const Text('1000000',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                  ],
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.96,
+                  child: const Divider(
+                    color: Colors.black,
+                    height: 1,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  color: Colors.white,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.green,
+                    ),
+                    child: TextButton(
+                        child: const Text(
+                          'Buyurtma berish',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {}),
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+              ],
+            ),
+          ),
         ],
       ),
     );
