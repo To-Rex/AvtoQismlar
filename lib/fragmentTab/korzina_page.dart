@@ -4,6 +4,7 @@ import 'package:avto_qismlar/models/products.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class KorzinaPage extends StatefulWidget {
   const KorzinaPage({super.key});
@@ -30,12 +31,82 @@ class _SampesPageState extends State<KorzinaPage> {
       _productList.add(productClass);
     }
     setState(() {
-
-    });
-    setState(() {
       counter = List.generate(
           _productList.length, (index) => int.parse(_productList[index].count));
     });
+    getAllmoney();
+  }
+
+  //delete product from basket and update basket in shared preferences
+  Future<void> deleteProduct(int index) async {
+    final prefs = await SharedPreferences.getInstance();
+    String? basket = prefs.getString('basket');
+    var data = jsonDecode(basket!);
+    List<dynamic> products = data['products'];
+    products.removeAt(index);
+    data['products'] = products;
+    prefs.setString('basket', jsonEncode(data));
+    _productList.removeAt(index);
+    setState(() {});
+  }
+
+  double countsMoney(double prise, double discount, double dollarRate) {
+    prise = prise * dollarRate;
+    discount = discount * dollarRate;
+    prise = prise - discount;
+    prise = prise / 100;
+    prise = prise.ceilToDouble();
+    prise = prise * 100;
+    return prise;
+  }
+
+  String getAllmoney() {
+    var price = 0.0;
+    for (var i = 0; i < _productList.length; i++) {
+      price += countsMoney(
+          double.parse(_productList[i].sellPrice),
+          double.parse(_productList[i].discount),
+          double.parse(_productList[i].dollarRate)
+      )*double.parse(_productList[i].count);
+    }
+    print(price);
+    return moneyFormat(price);
+  }
+
+
+
+  Future<void> createOrder() async {
+    final prefs = await SharedPreferences.getInstance();
+    cId = prefs.getString('client_id') ?? '';
+    //mutable list of products
+    List<ProductClass> _productsList = [];
+
+    String? basket = prefs.getString('basket');
+    var data = jsonDecode(basket!);
+    List<dynamic> products = data['products'];
+    for (var product in products) {
+      ProductClass productClass = ProductClass.fromJson(product);
+      _productsList.add(productClass);
+    }
+    final response = await http.post(
+      Uri.parse('http://avtoqismlar.almirab.uz/api/create_order'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'client_id': cId,
+        'products': _productsList,
+      }),
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      print('success');
+      prefs.remove('basket');
+      _productList.clear();
+      setState(() {});
+    }else{
+      print('error');
+    }
   }
 
   String moneyFormat(double amount) {
@@ -302,10 +373,8 @@ class _SampesPageState extends State<KorzinaPage> {
                                           color: Colors.black54,
                                         ),
                                         onPressed: () {
-                                          //delete product shared preferences and update list and listview
                                           setState(() {
-                                            _productList.removeAt(index);
-                                            //counter.removeAt(index);
+                                            deleteProduct(index);
                                           });
                                         },
                                       ),
@@ -326,8 +395,9 @@ class _SampesPageState extends State<KorzinaPage> {
                     );
                   }),
             ),
+          if(_productList.isEmpty)
+            Expanded(child: Container()),
           Container(
-//height: MediaQuery.of(context).size.height * 0.05,
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -336,7 +406,7 @@ class _SampesPageState extends State<KorzinaPage> {
                   color: Colors.grey,
                   blurRadius: 2.0,
                   spreadRadius: 1.0,
-                  offset: Offset(1.0, 1.0), // shadow direction: bottom right
+                  offset: Offset(1.0, 1.0),
                 )
               ],
             ),
@@ -352,8 +422,8 @@ class _SampesPageState extends State<KorzinaPage> {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
-                    const Text('1000000',
-                        style: TextStyle(
+                    Text(getAllmoney(),
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold)),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   ],
@@ -388,7 +458,9 @@ class _SampesPageState extends State<KorzinaPage> {
                               fontSize: 16,
                               fontWeight: FontWeight.bold),
                         ),
-                        onPressed: () {}),
+                        onPressed: () {
+                          createOrder();
+                        }),
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
